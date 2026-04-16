@@ -7,7 +7,7 @@ export default function Experience() {
   return (
     <SectionWrapper
       id="experience"
-      number="06"
+      number="07"
       label="Parcours"
       title="Expérience & Formation"
     >

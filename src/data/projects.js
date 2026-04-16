@@ -73,7 +73,7 @@ const projects = [
   {
     id: "festival",
     num: "04",
-    title: "Site de Festival",
+    title: "Site de Festival 'BARBECUE GEANT'",
     category: "fullstack",
     stack: ["MongoDB", "Express.js", "React", "Node.js"],
     summary:
@@ -91,7 +91,7 @@ const projects = [
       "Carte interactive fonctionnelle avec géolocalisation des scènes",
     ],
     color: "#b5543b",
-    liveUrl: "#",
+    liveUrl: "https://barbecue-geant25-5ux5.vercel.app/",
   },
 ];
 

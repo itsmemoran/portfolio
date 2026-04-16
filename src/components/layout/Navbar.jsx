@@ -6,6 +6,7 @@ const NAV_ITEMS = [
   { id: "skills", label: "Compétences" },
   { id: "projects", label: "Projets" },
   { id: "cases", label: "Études de cas" },
+  { id: "creations", label: "Créations" },
   { id: "contact", label: "Contact" },
 ];
 

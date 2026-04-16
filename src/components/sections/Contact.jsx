@@ -12,7 +12,7 @@ export default function Contact() {
               aria-hidden="true"
               className="absolute -top-6 right-0 font-display text-[clamp(5rem,10vw,9rem)] leading-none text-paper opacity-[0.04] select-none pointer-events-none"
             >
-              07
+              08
             </span>
             <p className="font-mono text-xs text-accent tracking-[0.12em] uppercase mb-2 font-medium">
               Contact
