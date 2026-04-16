@@ -1,25 +1,53 @@
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import RevealOnScroll from "../../shared/RevealOnScroll";
 
 const themes = {
-  light: { bg: "bg-paper", text: "text-ink", sub: "text-muted", numColor: "text-accent" },
-  dark: { bg: "bg-ink", text: "text-paper", sub: "text-white/50", numColor: "text-paper" },
-  surface: { bg: "bg-surface", text: "text-ink", sub: "text-muted", numColor: "text-accent" },
+  light:   { bg: "bg-paper",   text: "text-ink",   sub: "text-muted",    numColor: "text-accent" },
+  dark:    { bg: "bg-ink",     text: "text-paper",  sub: "text-white/50", numColor: "text-paper" },
+  surface: { bg: "bg-surface", text: "text-ink",    sub: "text-muted",    numColor: "text-accent" },
 };
 
-export default function SectionWrapper({ id, number, label, title, subtitle, theme = "light", children }) {
+/**
+ * Every content section gets:
+ * 1. A decorative number that drifts upward slower than content (parallax)
+ * 2. The content itself entering with a slight upward reveal
+ *
+ * The number parallax creates the illusion that it sits on a
+ * background plane while the text scrolls over it.
+ */
+export default function SectionWrapper({
+  id, number, label, title, subtitle, theme = "light", children,
+}) {
   const t = themes[theme];
+  const ref = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  // The number moves slower — feels like it's pinned further back
+  const numY = useTransform(scrollYProgress, [0, 1], [60, -60]);
 
   return (
-    <section id={id} className={`${t.bg} ${t.text} py-20 md:py-28 relative`}>
+    <section
+      ref={ref}
+      id={id}
+      className={`${t.bg} ${t.text} py-20 md:py-28 relative overflow-hidden`}
+    >
       <div className="max-w-[1200px] mx-auto px-6">
         <RevealOnScroll>
           <div className="relative mb-14">
-            <span
+            {/* Parallax number */}
+            <motion.span
               aria-hidden="true"
               className={`absolute -top-6 right-0 font-display text-[clamp(5rem,10vw,9rem)] leading-none select-none pointer-events-none ${t.numColor} ${theme === "dark" ? "opacity-[0.04]" : "opacity-[0.07]"}`}
+              style={{ y: numY }}
             >
               {number}
-            </span>
+            </motion.span>
+
             <p className="font-mono text-xs text-accent tracking-[0.12em] uppercase mb-2 font-medium">
               {label}
             </p>

@@ -1,19 +1,29 @@
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import RevealOnScroll from "../../shared/RevealOnScroll";
 import ContactCard from "../ui/ContactCard";
 import contactLinks from "../../data/contactLinks";
 
 export default function Contact() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const numY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+
   return (
-    <section id="contact" className="py-20 md:py-28 bg-ink text-paper">
+    <section ref={ref} id="contact" className="py-20 md:py-28 bg-ink text-paper overflow-hidden">
       <div className="max-w-[1200px] mx-auto px-6">
         <RevealOnScroll>
           <div className="relative mb-14">
-            <span
+            <motion.span
               aria-hidden="true"
               className="absolute -top-6 right-0 font-display text-[clamp(5rem,10vw,9rem)] leading-none text-paper opacity-[0.04] select-none pointer-events-none"
+              style={{ y: numY }}
             >
               08
-            </span>
+            </motion.span>
             <p className="font-mono text-xs text-accent tracking-[0.12em] uppercase mb-2 font-medium">
               Contact
             </p>
